@@ -76,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: <Widget>[
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             builder: (context, snapshot) {
-              final messages = snapshot.data!.docs.reversed;
+              final messages = snapshot.data!.docs;
               if (snapshot.hasData) {
                 List<MessageBubble> messageBubbles = [];
                 for (var message in messages) {
@@ -114,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
             },
             stream: _firestore
                 .collection('messages')
-                .orderBy('time', descending: false)
+                .orderBy('time', descending: true)
                 .snapshots(),
           ),
           Container(
